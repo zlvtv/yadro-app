@@ -1,0 +1,56 @@
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+    border-bottom: var(--rule);
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  &__toolbar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  &__search {
+    max-width: 380px;
+    width: 100%;
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+    padding: 64px 0;
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+
+  td button + button {
+    margin-left: 6px;
+  }
+
+  td:first-child {
+    font-family: var(--mono);
+    color: var(--muted);
+  }
+}

@@ -1,0 +1,116 @@
+<div class="user-detail">
+  <div class="user-detail__toolbar">
+    <button nz-button nzType="default" routerLink="/users">
+      <span nz-icon nzType="arrow-left"></span>
+      Назад
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="user-detail__loading">
+      <nz-spin nzSize="large" nzTip="Загрузка пользователя…"></nz-spin>
+    </div>
+  } @else if (notFound()) {
+    <nz-card>
+      <p>Пользователь не найден.</p>
+      <button nz-button nzType="primary" routerLink="/users">К списку</button>
+    </nz-card>
+  } @else if (user(); as u) {
+    <nz-card class="user-detail__card">
+      <div class="user-detail__header">
+        <div>
+          <h2 class="user-detail__name">{{ u.name }}</h2>
+          <nz-tag nzColor="blue">@{{ u.username }}</nz-tag>
+        </div>
+        <div class="user-detail__actions">
+          <button nz-button nzType="primary" [routerLink]="['/users', u.id, 'edit']">
+            <span nz-icon nzType="edit"></span>
+            Редактировать
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            nzDanger
+            nz-popconfirm
+            nzPopconfirmTitle="Удалить этого пользователя?"
+            nzOkText="Удалить"
+            nzCancelText="Отмена"
+            (nzOnConfirm)="delete()"
+          >
+            <span nz-icon nzType="delete"></span>
+            Удалить
+          </button>
+        </div>
+      </div>
+
+      <nz-divider></nz-divider>
+
+      <nz-descriptions nzTitle="Контакты" nzBordered nzSize="small" [nzColumn]="2">
+        <nz-descriptions-item nzTitle="Email">
+          <span nz-icon nzType="mail"></span>
+          <a href="mailto:{{ u.email }}">&nbsp;{{ u.email }}</a>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Телефон">
+          @if (u.phone) {
+            <span nz-icon nzType="phone"></span>
+            &nbsp;{{ u.phone }}
+          } @else {
+            <span class="user-detail__muted">—</span>
+          }
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Сайт" [nzSpan]="2">
+          @if (u.website) {
+            <span nz-icon nzType="global"></span>
+            <a href="https://{{ u.website }}" target="_blank" rel="noopener">
+              &nbsp;{{ u.website }}
+            </a>
+          } @else {
+            <span class="user-detail__muted">—</span>
+          }
+        </nz-descriptions-item>
+      </nz-descriptions>
+
+      @if (u.address) {
+        <nz-descriptions
+          nzTitle="Адрес"
+          nzBordered
+          nzSize="small"
+          [nzColumn]="2"
+          class="user-detail__section"
+        >
+          <nz-descriptions-item nzTitle="Улица">{{ u.address.street }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Кв./офис">{{ u.address.suite }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Город">{{ u.address.city }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Индекс">{{ u.address.zipcode }}</nz-descriptions-item>
+          @if (u.address.geo && (u.address.geo.lat || u.address.geo.lng)) {
+            <nz-descriptions-item nzTitle="Координаты" [nzSpan]="2">
+              <span nz-icon nzType="environment"></span>
+              &nbsp;{{ u.address.geo.lat }}, {{ u.address.geo.lng }}
+            </nz-descriptions-item>
+          }
+        </nz-descriptions>
+      }
+
+      @if (u.company) {
+        <nz-descriptions
+          nzTitle="Компания"
+          nzBordered
+          nzSize="small"
+          [nzColumn]="1"
+          class="user-detail__section"
+        >
+          <nz-descriptions-item nzTitle="Название">
+            <span nz-icon nzType="bank"></span>
+            &nbsp;{{ u.company.name }}
+          </nz-descriptions-item>
+          @if (u.company.catchPhrase) {
+            <nz-descriptions-item nzTitle="Слоган">{{ u.company.catchPhrase }}</nz-descriptions-item>
+          }
+          @if (u.company.bs) {
+            <nz-descriptions-item nzTitle="Направление">{{ u.company.bs }}</nz-descriptions-item>
+          }
+        </nz-descriptions>
+      }
+    </nz-card>
+  }
+</div>

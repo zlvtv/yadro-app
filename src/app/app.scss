@@ -1,0 +1,52 @@
+.app-layout {
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 24px;
+  background: var(--ink);
+  border-bottom: var(--rule);
+  height: 64px;
+}
+
+.app-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 20px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--accent);
+  }
+}
+
+.app-menu {
+  flex: 1;
+  background: transparent !important;
+  border-bottom: none;
+  line-height: 64px;
+}
+
+.app-content {
+  padding: 32px 24px;
+}
+
+.app-content-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--paper);
+  padding: 0;
+  min-height: calc(100vh - 64px - 64px);
+}

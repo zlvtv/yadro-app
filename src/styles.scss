@@ -1,1 +1,289 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'ng-zorro-antd/ng-zorro-antd.min.css';
+
+:root {
+  --ink: #2b2a28;
+  --ink-soft: #4a4843;
+  --paper: #f7f4ef;
+  --paper-deep: #ece7dd;
+  --surface: #ffffff;
+  --accent: #b85c38;
+  --accent-deep: #9a4a2c;
+  --accent-soft: #f3e6df;
+  --muted: #8a857c;
+  --rule: 1px solid #d9d4c8;
+  --rule-strong: 1px solid var(--ink);
+  --serif: Georgia, 'Times New Roman', serif;
+  --mono: 'IBM Plex Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+*,
+*::before,
+*::after {
+  border-radius: 2px !important;
+}
+
+.ant-card,
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-btn,
+.ant-tag,
+.ant-pagination-item,
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link,
+.ant-popover-inner,
+.ant-message-notice-content,
+.ant-select-selector {
+  box-shadow: none !important;
+}
+
+.ant-card {
+  background: var(--surface);
+  border: var(--rule);
+}
+
+.ant-btn {
+  border: var(--rule);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+  &:hover,
+  &:focus {
+    background: var(--paper-deep);
+    color: var(--ink);
+    border-color: var(--ink-soft);
+  }
+}
+
+.ant-btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+
+  &:hover,
+  &:focus {
+    background: var(--accent-deep);
+    color: #fff;
+    border-color: var(--accent-deep);
+  }
+}
+
+.ant-btn-dangerous {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--rule);
+
+  &:hover,
+  &:focus {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+}
+
+.ant-btn-dangerous.ant-btn-primary {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+
+  &:hover,
+  &:focus {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+}
+
+.ant-input,
+.ant-input-affix-wrapper {
+  background: var(--surface);
+  border: var(--rule);
+  color: var(--ink);
+
+  &:focus,
+  &:hover,
+  &.ant-input-focused {
+    border-color: var(--accent);
+  }
+}
+
+.ant-table {
+  background: var(--surface);
+  border: var(--rule);
+}
+
+.ant-table-thead > tr > th {
+  background: transparent;
+  color: var(--ink);
+  font-family: inherit;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  border-bottom: var(--rule);
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: var(--rule);
+}
+
+.ant-table-tbody > tr:last-child > td {
+  border-bottom: 0;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: var(--paper) !important;
+}
+
+.ant-tag {
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  border: 1px solid #e8d1c5;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  padding: 1px 8px;
+}
+
+.ant-tag-blue {
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  border-color: #e8d1c5;
+}
+
+.ant-pagination-item,
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
+  border: var(--rule);
+  background: var(--surface);
+
+  a {
+    color: var(--ink);
+  }
+}
+
+.ant-pagination-item-active {
+  background: var(--accent);
+  border-color: var(--accent);
+
+  a {
+    color: #fff;
+  }
+}
+
+.ant-menu-dark.ant-menu-horizontal {
+  background: transparent;
+}
+
+.ant-menu-dark.ant-menu-horizontal .ant-menu-item {
+  color: rgba(255, 255, 255, 0.78);
+
+  &::after {
+    border-bottom: 2px solid transparent !important;
+  }
+}
+
+.ant-menu-dark.ant-menu-horizontal .ant-menu-item:hover,
+.ant-menu-dark.ant-menu-horizontal .ant-menu-item-active {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #fff !important;
+}
+
+.ant-menu-dark.ant-menu-horizontal .ant-menu-item-selected {
+  background-color: transparent !important;
+  color: var(--accent) !important;
+
+  &::after {
+    border-bottom: 2px solid var(--accent) !important;
+  }
+}
+
+.ant-descriptions-bordered .ant-descriptions-item-label {
+  background: var(--paper);
+  border: var(--rule);
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.ant-descriptions-bordered .ant-descriptions-item-content {
+  border: var(--rule);
+  background: var(--surface);
+}
+
+.ant-descriptions-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  border-bottom: var(--rule);
+  padding-bottom: 6px;
+  margin-bottom: 12px !important;
+  color: var(--ink);
+}
+
+.ant-form-item-label > label {
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ant-divider-horizontal.ant-divider-with-text {
+  color: var(--ink);
+  border-top-color: #d9d4c8;
+
+  .ant-divider-inner-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  &::before,
+  &::after {
+    border-top: 1px solid #d9d4c8 !important;
+  }
+}
+
+.ant-popover-inner {
+  border: var(--rule);
+  background: var(--surface);
+}
+
+.ant-message-notice-content {
+  border: var(--rule);
+  background: var(--surface);
+}
+
+.ant-empty-description {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--muted);
+}

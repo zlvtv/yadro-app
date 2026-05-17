@@ -1,0 +1,44 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__toolbar {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+    padding: 64px 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+  }
+
+  &__subtitle {
+    margin: 4px 0 24px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  &__required {
+    color: var(--accent);
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: var(--rule);
+  }
+}

@@ -1,0 +1,48 @@
+.user-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__toolbar {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+    padding: 64px 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+    border-bottom: var(--rule);
+  }
+
+  &__name {
+    margin: 0 0 8px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__section {
+    margin-top: 24px;
+  }
+
+  &__muted {
+    color: var(--muted);
+  }
+}

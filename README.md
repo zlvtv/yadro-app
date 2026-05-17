@@ -1,59 +1,39 @@
-# UsersApp
+# Тестовое задание (YADRO)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.26.
+Angular 20 + NG-ZORRO. Приложение получает список пользователей из публичного REST API
+[JSONPlaceholder](https://jsonplaceholder.typicode.com/) и позволяет просматривать, создавать, редактировать и удалять записи.
 
-## Development server
+## Стек
 
-To start a local development server, run:
+- Angular CLI 20.3
+- TypeScript 5.9
+- ng-zorro-antd 20.4
+- RxJS 7.8
+- Standalone-компоненты, lazy-loaded маршруты, control flow `@if` / `@for`
 
-```bash
-ng serve
-```
+## Маршруты
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- `/users` — список с поиском и пагинацией
+- `/users/new` — создание пользователя
+- `/users/:id` — детали пользователя
+- `/users/:id/edit` — редактирование
 
-## Code scaffolding
+## API
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Используются эндпоинты JSONPlaceholder:
 
-```bash
-ng generate component component-name
-```
+- `GET    https://jsonplaceholder.typicode.com/users`
+- `GET    https://jsonplaceholder.typicode.com/users/{id}`
+- `POST   https://jsonplaceholder.typicode.com/users`
+- `PUT    https://jsonplaceholder.typicode.com/users/{id}`
+- `DELETE https://jsonplaceholder.typicode.com/users/{id}`
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+JSONPlaceholder — мок-API. `UserService` хранит локальный кэш в `BehaviorSubject`, чтобы интерфейс оставался консистентным внутри сессии (созданным пользователям присваиваются локальные `id > 1000`).
 
-```bash
-ng generate --help
-```
+## Скрипты
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `npm start` — запуск dev-сервера
+- `npm run build` — production-сборка в `dist/users-app/browser`
+- `npm run build:gh-pages` — та же сборка с `--base-href ./` для GitHub Pages
+- `npm run deploy` — сборка и публикация в ветку `gh-pages`
+- `npm test` — unit-тесты через Karma
