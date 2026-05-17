@@ -11,11 +11,22 @@
     <nz-input-group [nzPrefix]="prefixIcon" class="user-list__search">
       <input
         nz-input
-        placeholder="Поиск по имени или email…"
-        [ngModel]="searchTerm()"
-        (ngModelChange)="onSearchChange($event)"
+        placeholder="Поиск по имени…"
+        [ngModel]="nameTerm()"
+        (ngModelChange)="onNameChange($event)"
       />
     </nz-input-group>
+    <nz-input-group [nzPrefix]="prefixIcon" class="user-list__search">
+      <input
+        nz-input
+        placeholder="Поиск по email…"
+        [ngModel]="emailTerm()"
+        (ngModelChange)="onEmailChange($event)"
+      />
+    </nz-input-group>
+    @if (nameTerm() || emailTerm()) {
+      <button nz-button nzType="default" (click)="resetFilters()">Сбросить</button>
+    }
     <ng-template #prefixIcon>
       <span nz-icon nzType="search"></span>
     </ng-template>

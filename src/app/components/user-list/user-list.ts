@@ -45,18 +45,19 @@ export class UserListComponent implements OnInit {
 
   readonly users = signal<User[]>([]);
   readonly loading = signal(false);
-  readonly searchTerm = signal('');
+  readonly nameTerm = signal('');
+  readonly emailTerm = signal('');
   readonly pageIndex = signal(1);
   readonly pageSize = signal(5);
 
   readonly filteredUsers = computed(() => {
-    const term = this.searchTerm().trim().toLowerCase();
-    if (!term) {
-      return this.users();
-    }
-    return this.users().filter(
-      (u) => u.name.toLowerCase().includes(term) || u.email.toLowerCase().includes(term)
-    );
+    const name = this.nameTerm().trim().toLowerCase();
+    const email = this.emailTerm().trim().toLowerCase();
+    return this.users().filter((u) => {
+      const matchName = !name || u.name.toLowerCase().includes(name);
+      const matchEmail = !email || u.email.toLowerCase().includes(email);
+      return matchName && matchEmail;
+    });
   });
 
   readonly pagedUsers = computed(() => {
@@ -85,8 +86,19 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  onSearchChange(value: string): void {
-    this.searchTerm.set(value);
+  onNameChange(value: string): void {
+    this.nameTerm.set(value);
+    this.pageIndex.set(1);
+  }
+
+  onEmailChange(value: string): void {
+    this.emailTerm.set(value);
+    this.pageIndex.set(1);
+  }
+
+  resetFilters(): void {
+    this.nameTerm.set('');
+    this.emailTerm.set('');
     this.pageIndex.set(1);
   }
 

@@ -48,21 +48,38 @@ export class UserFormComponent implements OnInit {
   readonly isEdit = computed(() => this.editingId() !== null);
 
   readonly form = this.fb.nonNullable.group({
-    name: ['', [Validators.required, Validators.minLength(2)]],
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.email]],
-    phone: [''],
-    website: [''],
+    name: [
+      '',
+      [Validators.required, Validators.minLength(2), Validators.maxLength(60)],
+    ],
+    username: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30),
+        Validators.pattern(/^[A-Za-z][A-Za-z0-9._-]*$/),
+      ],
+    ],
+    email: [
+      '',
+      [Validators.required, Validators.email, Validators.maxLength(80)],
+    ],
+    phone: ['', [Validators.pattern(/^[+]?[0-9\s\-()]{5,20}$/)]],
+    website: [
+      '',
+      [Validators.pattern(/^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/[\w\-./?%&=]*)?$/i)],
+    ],
     address: this.fb.nonNullable.group({
-      street: [''],
-      suite: [''],
-      city: [''],
-      zipcode: [''],
+      street: ['', [Validators.maxLength(80)]],
+      suite: ['', [Validators.maxLength(40)]],
+      city: ['', [Validators.minLength(2), Validators.maxLength(60)]],
+      zipcode: ['', [Validators.pattern(/^[A-Za-z0-9 -]{3,10}$/)]],
     }),
     company: this.fb.nonNullable.group({
-      name: [''],
-      catchPhrase: [''],
-      bs: [''],
+      name: ['', [Validators.minLength(2), Validators.maxLength(60)]],
+      catchPhrase: ['', [Validators.maxLength(120)]],
+      bs: ['', [Validators.maxLength(120)]],
     }),
   });
 

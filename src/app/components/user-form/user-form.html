@@ -24,17 +24,16 @@
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label nzRequired>ФИО</nz-form-label>
-              <nz-form-control
-                nzHasFeedback
-                [nzErrorTip]="nameErrors"
-              >
+              <nz-form-control [nzErrorTip]="nameErrors">
                 <input nz-input formControlName="name" placeholder="Иван Иванов" />
               </nz-form-control>
               <ng-template #nameErrors let-control>
                 @if (control.hasError('required')) {
                   Введите имя.
                 } @else if (control.hasError('minlength')) {
-                  Имя должно быть не короче 2 символов.
+                  Не короче 2 символов.
+                } @else if (control.hasError('maxlength')) {
+                  Не длиннее 60 символов.
                 }
               </ng-template>
             </nz-form-item>
@@ -43,17 +42,18 @@
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label nzRequired>Логин</nz-form-label>
-              <nz-form-control
-                nzHasFeedback
-                [nzErrorTip]="usernameErrors"
-              >
+              <nz-form-control [nzErrorTip]="usernameErrors">
                 <input nz-input formControlName="username" placeholder="ivanov" />
               </nz-form-control>
               <ng-template #usernameErrors let-control>
                 @if (control.hasError('required')) {
                   Введите логин.
                 } @else if (control.hasError('minlength')) {
-                  Логин должен быть не короче 3 символов.
+                  Не короче 3 символов.
+                } @else if (control.hasError('maxlength')) {
+                  Не длиннее 30 символов.
+                } @else if (control.hasError('pattern')) {
+                  Только латиница, цифры и символы . _ -; начинается с буквы.
                 }
               </ng-template>
             </nz-form-item>
@@ -62,10 +62,7 @@
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label nzRequired>Email</nz-form-label>
-              <nz-form-control
-                nzHasFeedback
-                [nzErrorTip]="emailErrors"
-              >
+              <nz-form-control [nzErrorTip]="emailErrors">
                 <input nz-input formControlName="email" placeholder="ivan@example.com" />
               </nz-form-control>
               <ng-template #emailErrors let-control>
@@ -73,6 +70,8 @@
                   Введите email.
                 } @else if (control.hasError('email')) {
                   Некорректный формат email.
+                } @else if (control.hasError('maxlength')) {
+                  Не длиннее 80 символов.
                 }
               </ng-template>
             </nz-form-item>
@@ -81,18 +80,28 @@
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label>Телефон</nz-form-label>
-              <nz-form-control>
+              <nz-form-control [nzErrorTip]="phoneErrors">
                 <input nz-input formControlName="phone" placeholder="+7 999 000 00 00" />
               </nz-form-control>
+              <ng-template #phoneErrors let-control>
+                @if (control.hasError('pattern')) {
+                  Только цифры, пробелы и символы + - ( ); 5–20 знаков.
+                }
+              </ng-template>
             </nz-form-item>
           </div>
 
           <div nz-col [nzSpan]="24">
             <nz-form-item>
               <nz-form-label>Сайт</nz-form-label>
-              <nz-form-control>
+              <nz-form-control [nzErrorTip]="websiteErrors">
                 <input nz-input formControlName="website" placeholder="example.com" />
               </nz-form-control>
+              <ng-template #websiteErrors let-control>
+                @if (control.hasError('pattern')) {
+                  Введите корректный домен или URL (например, example.com).
+                }
+              </ng-template>
             </nz-form-item>
           </div>
         </div>
@@ -102,33 +111,55 @@
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label>Улица</nz-form-label>
-              <nz-form-control>
+              <nz-form-control [nzErrorTip]="streetErrors">
                 <input nz-input formControlName="street" />
               </nz-form-control>
+              <ng-template #streetErrors let-control>
+                @if (control.hasError('maxlength')) {
+                  Не длиннее 80 символов.
+                }
+              </ng-template>
             </nz-form-item>
           </div>
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label>Кв./офис</nz-form-label>
-              <nz-form-control>
+              <nz-form-control [nzErrorTip]="suiteErrors">
                 <input nz-input formControlName="suite" />
               </nz-form-control>
+              <ng-template #suiteErrors let-control>
+                @if (control.hasError('maxlength')) {
+                  Не длиннее 40 символов.
+                }
+              </ng-template>
             </nz-form-item>
           </div>
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label>Город</nz-form-label>
-              <nz-form-control>
+              <nz-form-control [nzErrorTip]="cityErrors">
                 <input nz-input formControlName="city" />
               </nz-form-control>
+              <ng-template #cityErrors let-control>
+                @if (control.hasError('minlength')) {
+                  Не короче 2 символов.
+                } @else if (control.hasError('maxlength')) {
+                  Не длиннее 60 символов.
+                }
+              </ng-template>
             </nz-form-item>
           </div>
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label>Индекс</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="zipcode" />
+              <nz-form-control [nzErrorTip]="zipErrors">
+                <input nz-input formControlName="zipcode" placeholder="123456" />
               </nz-form-control>
+              <ng-template #zipErrors let-control>
+                @if (control.hasError('pattern')) {
+                  3–10 символов: буквы, цифры, пробел или дефис.
+                }
+              </ng-template>
             </nz-form-item>
           </div>
         </div>
@@ -138,25 +169,42 @@
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label>Название</nz-form-label>
-              <nz-form-control>
+              <nz-form-control [nzErrorTip]="companyNameErrors">
                 <input nz-input formControlName="name" />
               </nz-form-control>
+              <ng-template #companyNameErrors let-control>
+                @if (control.hasError('minlength')) {
+                  Не короче 2 символов.
+                } @else if (control.hasError('maxlength')) {
+                  Не длиннее 60 символов.
+                }
+              </ng-template>
             </nz-form-item>
           </div>
           <div nz-col [nzXs]="24" [nzMd]="12">
             <nz-form-item>
               <nz-form-label>Слоган</nz-form-label>
-              <nz-form-control>
+              <nz-form-control [nzErrorTip]="catchErrors">
                 <input nz-input formControlName="catchPhrase" />
               </nz-form-control>
+              <ng-template #catchErrors let-control>
+                @if (control.hasError('maxlength')) {
+                  Не длиннее 120 символов.
+                }
+              </ng-template>
             </nz-form-item>
           </div>
           <div nz-col [nzSpan]="24">
             <nz-form-item>
               <nz-form-label>Направление</nz-form-label>
-              <nz-form-control>
+              <nz-form-control [nzErrorTip]="bsErrors">
                 <input nz-input formControlName="bs" />
               </nz-form-control>
+              <ng-template #bsErrors let-control>
+                @if (control.hasError('maxlength')) {
+                  Не длиннее 120 символов.
+                }
+              </ng-template>
             </nz-form-item>
           </div>
         </div>
