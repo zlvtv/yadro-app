@@ -18,6 +18,24 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 
+type SortColumn = 'id' | 'name' | 'username' | 'email' | 'company';
+type SortOrder = 'ascend' | 'descend' | null;
+
+const sortAccessor = (u: User, col: SortColumn): string | number => {
+  switch (col) {
+    case 'id':
+      return u.id;
+    case 'name':
+      return u.name.toLowerCase();
+    case 'username':
+      return u.username.toLowerCase();
+    case 'email':
+      return u.email.toLowerCase();
+    case 'company':
+      return (u.company?.name ?? '').toLowerCase();
+  }
+};
+
 @Component({
   selector: 'app-user-list',
   imports: [
@@ -49,6 +67,9 @@ export class UserListComponent implements OnInit {
   readonly emailTerm = signal('');
   readonly pageIndex = signal(1);
   readonly pageSize = signal(5);
+  readonly sortColumn = signal<SortColumn | null>(null);
+  readonly sortOrder = signal<SortOrder>(null);
+  readonly sortDirections: SortOrder[] = ['ascend', 'descend'];
 
   readonly filteredUsers = computed(() => {
     const name = this.nameTerm().trim().toLowerCase();
@@ -60,12 +81,45 @@ export class UserListComponent implements OnInit {
     });
   });
 
+  readonly sortedUsers = computed(() => {
+    const col = this.sortColumn();
+    const order = this.sortOrder();
+    const list = this.filteredUsers();
+    if (!col || !order) {
+      return list;
+    }
+    const factor = order === 'ascend' ? 1 : -1;
+    return [...list].sort((a, b) => {
+      const av = sortAccessor(a, col);
+      const bv = sortAccessor(b, col);
+      if (av < bv) return -1 * factor;
+      if (av > bv) return 1 * factor;
+      return 0;
+    });
+  });
+
   readonly pagedUsers = computed(() => {
     const start = (this.pageIndex() - 1) * this.pageSize();
-    return this.filteredUsers().slice(start, start + this.pageSize());
+    return this.sortedUsers().slice(start, start + this.pageSize());
   });
 
   readonly total = computed(() => this.filteredUsers().length);
+
+  getSortOrder(col: SortColumn): SortOrder {
+    return this.sortColumn() === col ? this.sortOrder() : null;
+  }
+
+  onSortChange(col: SortColumn, order: string | null): void {
+    const next: SortOrder = order === 'ascend' || order === 'descend' ? order : null;
+    if (next === null) {
+      this.sortColumn.set(null);
+      this.sortOrder.set(null);
+    } else {
+      this.sortColumn.set(col);
+      this.sortOrder.set(next);
+    }
+    this.pageIndex.set(1);
+  }
 
   ngOnInit(): void {
     this.fetch();

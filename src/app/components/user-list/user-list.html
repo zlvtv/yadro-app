@@ -45,14 +45,54 @@
         [nzShowPagination]="false"
         nzSize="middle"
         nzBordered
+        nzTableLayout="fixed"
       >
         <thead>
           <tr>
-            <th nzWidth="80px">ID</th>
-            <th>Имя</th>
-            <th>Логин</th>
-            <th>Email</th>
-            <th>Компания</th>
+            <th
+              nzWidth="80px"
+              [nzSortFn]="true"
+              [nzSortDirections]="sortDirections"
+              [nzSortOrder]="getSortOrder('id')"
+              (nzSortOrderChange)="onSortChange('id', $event)"
+            >
+              ID
+            </th>
+            <th
+              nzWidth="22%"
+              [nzSortFn]="true"
+              [nzSortDirections]="sortDirections"
+              [nzSortOrder]="getSortOrder('name')"
+              (nzSortOrderChange)="onSortChange('name', $event)"
+            >
+              Имя
+            </th>
+            <th
+              nzWidth="16%"
+              [nzSortFn]="true"
+              [nzSortDirections]="sortDirections"
+              [nzSortOrder]="getSortOrder('username')"
+              (nzSortOrderChange)="onSortChange('username', $event)"
+            >
+              Логин
+            </th>
+            <th
+              nzWidth="24%"
+              [nzSortFn]="true"
+              [nzSortDirections]="sortDirections"
+              [nzSortOrder]="getSortOrder('email')"
+              (nzSortOrderChange)="onSortChange('email', $event)"
+            >
+              Email
+            </th>
+            <th
+              [nzSortFn]="true"
+              [nzSortDirections]="sortDirections"
+              [nzSortOrder]="getSortOrder('company')"
+              (nzSortOrderChange)="onSortChange('company', $event)"
+            >
+              Компания
+            </th>
             <th nzWidth="200px" nzAlign="right">Действия</th>
           </tr>
         </thead>

@@ -53,4 +53,12 @@
     font-family: var(--mono);
     color: var(--muted);
   }
+
+  td {
+    word-break: break-word;
+  }
+
+  th {
+    white-space: nowrap;
+  }
 }
